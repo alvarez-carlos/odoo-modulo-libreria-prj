@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <!-- Vista Form -->
+  
+    <record id='libro_form_view' model='ir.ui.view'>
+        <field name='name'>libro.form.view</field>
+        <field name='model'>libro</field>
+        <field name='arch' type='xml'>
+            <form string='Libros'>
+                <header>
+                    <!-- <button name='boton_borrador' string='Borrador' type='object' /> -->
+                    <button name='boton_publicar' string='Publicar' type='object' states='borrador' class='oe_highlight'/>
+                    <button name='boton_vender' string='Vender' type='object' states='publicado' class='oe_highlight'/>
+
+                    <field name='state' widget='statusbar'/>
+
+                    <!-- <field name='state' widget='statusbar' options="{'clickable':   1}" /> -->
+                    <!-- <field name='state' widget='statusbar' options="{'clickable': 0}" /> -->
+                </header>
+                <sheet>
+                    <!-- Bootstrap (un group equibale a 12 columnas de la pantalla) por lo tanto si coloco 2 groups dentro de uno group, cada uno de los groups hijos se divide las columnas y tomarian 6 columnas de ancho cada uno.-->
+                    <group>
+                        <group>
+
+                            <field name='name' />
+                            <field name='editorial' />
+                            <field name='isbn' />
+                            <field name='autor_id' />
+                            <field name='categoria_id' />
+                        </group>
+                        <group>
+                            <!-- <field name='image' widget='image' class='oe_avatar'/> -->
+                            <field name='image' widget='image' class='oe_avatar' />
+                        </group>
+                    </group>
+
+                </sheet>
+                <div class='oe_chatter'>
+                    <field name='message_follower_ids' />
+                    <field name='activity_ids' />
+                    <field name='message_ids' />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <!-- vista Arbol -->
+    <!-- 
+    
+    Decoradores:
+    
+    decoration-muted: records will be light grey
+    decoration-danger: records will be light red
+    decoration-success: records will be light green
+    decoration-primary: records will be light purple
+    decoration-info: records will be light blue
+    decoration-warning: records will be light brown
+    decoration-bf: records will be bold
+    Decoration-it: records will be italic
+
+
+    -->
+
+    <!-- Mostrar y Ocultar Columnas
+    
+    optional='hide'
+    optional='show'
+
+-->
+
+    <record id='libro_tree_view' model='ir.ui.view'>
+        <field name='name'>libro.tree.view</field>
+        <field name='model'>libro</field>
+        <field name='arch' type='xml'>
+            <tree string='Libros' decoration-success="state == 'vendido'" decoration-muted="state == 'borrador'" decoration-info="state == 'publicado'">
+                <field name='name' />
+                <field name='editorial' />
+                <field name='isbn' optional='show'/>
+                <field name='autor_id' optional='show'/>
+                <field name='categoria_id' optional='show'/>
+                <field name='state' widget='badge' decoration-muted="state == 'borrador'" decoration-info="state == 'publicado'" decoration-success="state == 'vendido'" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- Vista kanban -->
+    <record id='libro_kanban_view' model='ir.ui.view'>
+        <field name='name'>libro.kanban.view</field>
+        <field name='model'>libro</field>
+        <field name='arch' type='xml'>
+            <kanban>
+                <field name='id' />
+                <field name='name' />
+                <field name='editorial' />
+                <field name='isbn' />
+                <field name='autor_id' />
+                <field name='categoria_id' />
+                <templates>
+                    <t t-name='kanban-box'>
+                        <div class='oe_kanban_global_click'>
+                            <div class='o_kanban_image'>
+                                <img t-att-src="kanban_image('libro','image',record.id.raw_value)" alt='Image' />
+                            </div>
+                            <div class='oe_kanban_details'>
+                                <div class='o_kanban_record_top'>
+                                    <div class='o_kanban_record_heading'>
+                                        <strong class='o_kanban_record_title oe_partner_heading'>
+                                            <field name='name' />
+                                        </strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+
+            </kanban>
+        </field>
+
+    </record>
+
+
+    <!-- Vista Search -->
+    <record id='libro_search_view' model='ir.ui.view'>
+        <field name='name'>libro.search.view</field>
+        <field name='model'>libro</field>
+        <field name='arch' type='xml'>
+            <search>
+                <!-- Busqueda Rápida -->
+                <field name='name' string='Nombre del Libro' />
+                <field name='autor_id' string='Nombre del Autor' />
+
+                <!-- Filtro Rápido -->
+                <filter name='categoria_idioma' string='Categoria Idioma' domain="[('categoria_id','=','Idioma')]" />
+
+                <!-- Agrupación Rápida -->
+                <!-- expand=0 automaticamente es para que no se expanda simplemente se agrupe, lo opuesto a expand=1 -->
+                <!-- col=10 para que ocupe las 10 columnas de las 12 -->
+                <!-- context nos permite re4alizar agrupacion, nos permite enviar parametros a una funcion en el model-->
+                <group expand='0' string='Agrupar por' colspan='12' col='10'>
+                    <filter name='categoria' string='Categoria' context="{'group_by':'categoria_id'}" />
+                    <filter name='autor' string='Autor' context="{'group_by':'autor_id'}" />
+                </group>
+            </search>
+
+            <!-- search panel -->
+            <searchpanel>
+                <field name='categoria_id' string='Categorias' icon='fa-user' />
+                <field name='autor_id' string='Autores' icon='fa-user' />
+            </searchpanel>
+        </field>
+    </record>
+</odoo>

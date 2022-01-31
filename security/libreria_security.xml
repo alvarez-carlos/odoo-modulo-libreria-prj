@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding="UTF-8"?>
+
+<odoo>
+    <!-- Creamos una categoria -->
+    
+
+    <record id='categoria_modulo_libreria' model='ir.module.category'>
+        <field name='name'>Libreria</field>
+    </record>
+
+
+    <!-- Creamos un Grupo -->
+    <record id='libreria_group_user' model='res.groups'>
+        <field name='name'>Usuario</field>
+        <field name='category_id' ref='categoria_modulo_libreria' />
+        <field name='implied_ids' eval="[(4, ref('base.group_user'))]" />
+        <field name="users" eval="[(4, ref('base.user_admin'))]" />
+    </record>
+
+
+    <!-- 
+    <record id="group_self_borrow" model="res.groups">
+        <field name="name">Self borrow</field>
+        <field name="users" eval="[(4, ref('base.user_
+        admin'))]" />
+    </record> -->
+
+
+    <!-- 
+    <record id="group_library_user" model="res.groups">
+        <field name="name">User</field>
+        <field name="category_id" ref="base.module_category_library" />
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]" />
+    </record>
+    <record id="group_library_librarian" model="res.groups">
+        <field name="name">Librarians</field>
+        <field name="category_id" ref="base.module_category_library" />
+        <field name="implied_ids" eval="[(4, ref('group_library_user'))]" />
+        <field name="users" eval="[(4, ref('base.user_
+        admin'))]" />
+    </record> -->
+</odoo>

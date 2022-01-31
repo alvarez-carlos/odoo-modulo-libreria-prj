@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='utf-8'?>
+
+<odoo>
+
+    <!-- Libros Actions -->
+    <record id='libro_action' model='ir.actions.act_window'>
+        <field name='name'>Libros</field>
+        <field name='res_model'>libro</field>
+        <field name='view_mode'>tree,form,kanban</field>
+    </record>
+
+    <!-- Autores Actions -->
+    <record id='autor_action' model='ir.actions.act_window'>
+        <field name='name'>Autores</field>
+        <field name='res_model'>autor</field>
+        <field name='view_mode'>tree,form,kanban</field>
+    </record>
+
+    <!-- Categoria Actions -->
+    <record id='categoria_action' model='ir.actions.act_window'>
+        <field name='name'>Categorias</field>
+        <field name='res_model'>categoria</field>
+        <field name='view_mode'>tree,form,kanban</field>
+    </record>
+
+
+    <menuitem name='Mi libreria' id='libreria_menu' />
+    <menuitem name='Libros' id='libro_menu' parent='libreria_menu' action='libro_action' />
+    <menuitem name='Autores' id='autor_menu' parent='libreria_menu' action='autor_action' />
+    <menuitem name='Categorias' id='categoria_menu' parent='libreria_menu' action='categoria_action' />
+
+</odoo>

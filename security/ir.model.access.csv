@@ -1,0 +1,10 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+ac_libro,ac_libro,model_libro,,1,0,0,0
+ac_libro,ac_libro,model_libro,base.group_user,1,1,1,1
+ac_libro,ac_libro,model_libro,libreria_group_user,1,1,1,1
+ac_autor,ac_autor,model_autor,,1,0,0,0
+ac_autor,ac_autor,model_autor,base.group_user,1,1,1,1
+ac_autor,ac_autor,model_autor,libreria_group_user,1,1,1,1
+ac_categoria,ac_categoria,model_categoria,,1,1,1,1
+ac_categoria,ac_categoria,model_categoria,base.group_user,1,1,1,1
+ac_categoria,ac_categoria,model_categoria,libreria_group_user,1,1,1,1
